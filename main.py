@@ -18,12 +18,17 @@ data = load_data(aktier).drop(columns=["Open", "High", "Low", "Adj Close", "Volu
 df = data.to_csv("data.csv", index=False)
 df = pd.read_csv("data.csv")
 
+#sätter första raden som kolumnnamn
 df.columns = df.iloc[0]
+#sätter rader 1 och framåt som data
 df = df[1:]
 
+#konvertera kolumnerna till en lista
 cols = df.columns.tolist()
+#ändra namn på första kolumnen
 cols[0] = 'Date'
-df.columns = cols
+#ändra namn på kolumner till kolumnnamn i listan
+df.columns = cols 
 
 df.to_csv("data.csv", index=False)
 df = pd.read_csv("data.csv")
