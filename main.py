@@ -27,7 +27,7 @@ df = df[1:]
 cols = df.columns.tolist()
 #ändra namn på första kolumnen
 cols[0] = 'Date'
-#ändra namn på kolumnerna
+#ändra namn på kolumner till kolumnnamn i listan
 df.columns = cols 
 
 df.to_csv("data.csv", index=False)
