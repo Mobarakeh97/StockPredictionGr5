@@ -1,10 +1,12 @@
 import yfinance as yf
 from datetime import date
+import pandas as pd
 
 START = "2019-01-01"
 TODAY = date.today().strftime("%Y-%m-%d")
 
-aktier = ("ABB.ST", "ALFA.ST", "ALIV-SDB.ST", "ASSA-B.ST", "ATCO-A.ST", "ATCO-B.ST", "AZN.ST", "CAST.ST", "ELUX-B.ST", "ERIC-B.ST", "GETI-B.ST", "HM-B.ST", "INDU-C.ST", "INVE-B.ST", "KINV-B.ST", "LUMI-SDB.ST", "NDA-SEK.ST", "SAND.ST", "SCA-B.ST", "SEB-A.ST", "SECU-B.ST", "SHB-A.ST", "SKA-B.ST", "SKF-B.ST", "SSAB-A.ST", "SWED-A.ST", "SWMA.ST", "TEL2-B.ST", "TREL-B.ST", "VOLV-B.ST")
+aktier = ("NDA-SE.ST", "TELIA.ST", "BOL.ST", "EVO.ST", "ASSA-B.ST", "SCA-B.ST", "GETI-B.ST", "ELUX-B.ST", "TEL2-B.ST", "ATCO-B.ST", "SKF-B.ST", "SAND.ST", "ATCO-A.ST", "HEXA-B.ST", "ERIC-B.ST", "VOLV-B.ST", "HM-B.ST", "SHB-A.ST", "SEB-A.ST", "INVE-B.ST", "ALFA.ST", "ALIV-SDB.ST", "ESSITY-B.ST", "SWED-A.ST", "KINV-B.ST", "ABB.ST", "NIBE-B.ST", "AZN.ST", "SINCH.ST", "SBB-B.ST")
+
 
 def load_data(ticker):
     data = yf.download(ticker, START, TODAY)
@@ -13,4 +15,19 @@ def load_data(ticker):
 
 data = load_data(aktier).drop(columns=["Open", "High", "Low", "Adj Close", "Volume"])
 
-print(data.head())
+df = data.to_csv("data.csv", index=False)
+df = pd.read_csv("data.csv")
+
+df.columns = df.iloc[0]
+df = df[1:]
+
+cols = df.columns.tolist()
+cols[0] = 'Date'
+df.columns = cols
+
+df.to_csv("data.csv", index=False)
+df = pd.read_csv("data.csv")
+
+print(df)
+
+   
